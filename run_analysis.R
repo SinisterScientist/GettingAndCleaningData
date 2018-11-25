@@ -2,12 +2,16 @@
 #This file downloads and creates a tidy data set from Samsung Galaxy phone movements
 #Copyright 2018 SinisterScientist (Michael Schumaker)
 
-#Libraries
-install.packages("data.table")
-library(data.table)
-
+#Update the following directory to be able to run the script
 #Set current location of this file:
 script.location <- "C:/Users/Michael Schumaker/Documents/Course-work/GettingAndCleaningData/GettingAndCleaningData"
+
+#Libraries
+pack.test <- find.package("data.table", quiet=TRUE)
+if(length(pack.test) == 0) {
+   install.packages("data.table")
+}
+library(data.table)
 
 #Create a subdirectory as the working directory
 setwd(script.location)
@@ -26,21 +30,22 @@ setwd("run_analysis_working_dir")
 
 #Read the files
 datasetSubdir <- "UCI HAR Dataset"
-inertialSubdir <- "Inertial Signals"
 
 #I need to do something with the features, the activity labels
+features <- read.table(paste(datasetSubdir, "features.txt", sep="/"), header=FALSE)
+activity.labels <- read.table(paste(datasetSubdir, "activity_labels.txt", sep="/"), header=FALSE)
 
 
+X_test <- read.table(paste(datasetSubdir, "test", "X_test.txt", sep="/"), header=FALSE)
+y_test <- read.table(paste(datasetSubdir, "test", "y_test.txt", sep="/"), header=FALSE)
+subject_test <- read.table(paste(datasetSubdir, "test", "subject_test.txt", sep="/"), header=FALSE)
 
-#X_train <- read.table(paste(datasetSubdir, "train", "X_train.txt", sep="/"), sep=" ", header=FALSE)
-#y_train <- read.table(paste(datasetSubdir, "train", "y_train.txt", sep="/"), sep=" ", header=FALSE)
-#subject_train <- read.table(paste(datasetSubdir, "train", "subject_train.txt", sep="/"), sep=" ", header=FALSE)
+#Deal with the training sets after figuring everything out with the test sets
 
-#X_test <- read.table(paste(datasetSubdir, "test", "X_test.txt", sep="/"), sep=" ", header=FALSE)
-#y_test <- read.table(paste(datasetSubdir, "test", "y_test.txt", sep="/"), sep=" ", header=FALSE)
-#subject_test <- read.table(paste(datasetSubdir, "test", "subject_test.txt", sep="/"), sep=" ", header=FALSE)
+#X_train <- read.table(paste(datasetSubdir, "train", "X_train.txt", sep="/"), header=FALSE)
+#y_train <- read.table(paste(datasetSubdir, "train", "y_train.txt", sep="/"), header=FALSE)
+#subject_train <- read.table(paste(datasetSubdir, "train", "subject_train.txt", sep="/"), header=FALSE)
 
-#body_acc_X_train <- read.table(paste(datasetSubdir, "train", inertialSubdir, "body_acc_X_train.txt", sep="/"), sep=" ", header=FALSE)
 
 
 
